@@ -50,7 +50,7 @@ Fix currently applied: True
 
 ## How to fix
 
-1. [Download this repo](../../archive/refs/heads/main.zip) and extract it.
+1. [Download this repo (ZIP)](https://github.com/likhonmain/explorer-stream-lag-fix/archive/refs/heads/main.zip) and extract it.
 2. Double-click **`APPLY-fix.bat`**.
 3. Restart apps that are already open (or sign out / restart *Windows Explorer* in Task Manager).
 
