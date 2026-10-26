@@ -14,7 +14,15 @@ try {
         $k = Get-Item $bk
         if ($k.ValueCount -eq 0 -and $k.SubKeyCount -eq 0) { Remove-Item $bk }
         Write-Host '  [OK] Fix removed. Windows default behavior restored.' -ForegroundColor Green
-        Write-Host '  Restart open apps (or sign out / restart Explorer) to be sure.'
+        $a = Read-Host '  Restart Windows Explorer now so it takes effect? (Y/N)'
+        if ($a -match '^[Yy]') {
+            Stop-Process -Name explorer -Force -ErrorAction SilentlyContinue
+            Start-Sleep -Seconds 3
+            if (-not (Get-Process explorer -ErrorAction SilentlyContinue)) { Start-Process explorer.exe }
+            Write-Host '  [OK] Explorer restarted.' -ForegroundColor Green
+        } else {
+            Write-Host '  Restart Explorer, open apps, or the PC later for it to take effect.' -ForegroundColor Yellow
+        }
     } else {
         Write-Host '  [OK] Fix was not applied - nothing to undo.' -ForegroundColor Yellow
     }

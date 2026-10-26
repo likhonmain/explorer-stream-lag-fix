@@ -51,8 +51,14 @@ Fix currently applied: True
 ## How to fix
 
 1. [Download this repo (ZIP)](https://github.com/likhonmain/explorer-stream-lag-fix/archive/refs/heads/main.zip) and extract it.
-2. Double-click **`APPLY-fix.bat`**.
-3. Restart apps that are already open (or sign out / restart *Windows Explorer* in Task Manager).
+2. Double-click **`APPLY-fix.bat`** and answer **Y** when it offers to restart Windows Explorer.
+3. Restart other apps that are already open (browser, Office, etc.) so their file pickers pick it up —
+   or simply **restart the PC**, which covers everything.
+
+> ⚠️ **Closing the File Explorer window is NOT enough.** `explorer.exe` (the taskbar/desktop) keeps
+> running in the background and still has the old component loaded, so opening Explorer again from the
+> taskbar will still lag until Explorer itself is restarted. Measured on the test PC: still **999 ms**
+> spikes after applying the fix and only closing the window; **5–40 ms** right after restarting Explorer.
 
 **To undo:** double-click **`UNDO-fix.bat`**. Windows goes back to its default behavior.
 

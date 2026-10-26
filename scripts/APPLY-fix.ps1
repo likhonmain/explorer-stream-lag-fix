@@ -23,8 +23,21 @@ try {
         -Value 'DLNA Media Servers Data Source (blocked by ExplorerStreamLagFix)' `
         -PropertyType String -Force | Out-Null
     Write-Host '  [OK] Fix applied.' -ForegroundColor Green
-    Write-Host '  New Explorer windows and file dialogs use it immediately.'
-    Write-Host '  For already-open apps, restart them (or sign out / restart Explorer).'
+    Write-Host ''
+    Write-Host '  IMPORTANT: programs that are already running keep the old component loaded.'
+    Write-Host '  Explorer (taskbar + file windows) runs all the time, so it MUST be restarted.'
+    Write-Host '  Other open apps (browser, Office...) need a restart for THEIR file pickers.'
+    Write-Host '  Restarting the PC or signing out covers everything.'
+    Write-Host ''
+    $a = Read-Host '  Restart Windows Explorer now? Taskbar disappears for ~3 seconds (Y/N)'
+    if ($a -match '^[Yy]') {
+        Stop-Process -Name explorer -Force -ErrorAction SilentlyContinue
+        Start-Sleep -Seconds 3
+        if (-not (Get-Process explorer -ErrorAction SilentlyContinue)) { Start-Process explorer.exe }
+        Write-Host '  [OK] Explorer restarted.' -ForegroundColor Green
+    } else {
+        Write-Host '  Skipped. Restart Explorer (Task Manager > Windows Explorer > Restart) or the PC later.' -ForegroundColor Yellow
+    }
     Write-Host '  Undo any time with UNDO-fix.bat'
 } catch {
     Write-Host "  [ERROR] $($_.Exception.Message)" -ForegroundColor Red
